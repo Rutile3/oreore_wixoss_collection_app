@@ -84,11 +84,11 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
           ),
           IconButton(
             icon: const Icon(Icons.swap_vert_outlined),
-            onPressed: () {},
+            onPressed: () => _onPressedDisplaySort(),
           ),
           IconButton(
             icon: const Icon(Icons.grid_on_outlined),
-            onPressed: () => _onPressedSearchResultDisplayFormat(),
+            onPressed: () => _onPressedDisplayFormat(),
           ),
         ],
       ),
@@ -106,8 +106,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
             color: _displayDeckType == _DisplayDeckType.all
                 ? Colors.blue
                 : Colors.white,
-            onPressed: () =>
-                _onPressedSearchDisplayCardTypeCondition(_DisplayDeckType.all),
+            onPressed: () => _onPressedDisplayDeckType(_DisplayDeckType.all),
           ),
         ),
         Expanded(
@@ -116,8 +115,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
             color: _displayDeckType == _DisplayDeckType.lrig
                 ? Colors.blue
                 : Colors.white,
-            onPressed: () =>
-                _onPressedSearchDisplayCardTypeCondition(_DisplayDeckType.lrig),
+            onPressed: () => _onPressedDisplayDeckType(_DisplayDeckType.lrig),
           ),
         ),
         Expanded(
@@ -126,8 +124,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
             color: _displayDeckType == _DisplayDeckType.main
                 ? Colors.blue
                 : Colors.white,
-            onPressed: () =>
-                _onPressedSearchDisplayCardTypeCondition(_DisplayDeckType.main),
+            onPressed: () => _onPressedDisplayDeckType(_DisplayDeckType.main),
           ),
         ),
       ],
@@ -169,12 +166,55 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
   }
 
   /// 検索表示カードタイプ条件の切り替え
-  void _onPressedSearchDisplayCardTypeCondition(_DisplayDeckType type) {
+  void _onPressedDisplayDeckType(_DisplayDeckType type) {
     setState(() => _displayDeckType = type);
   }
 
+  /// 検索表示ソート条件の表示
+  void _onPressedDisplaySort() {
+    Widget _generateRow(String name, String high, String low) {
+      // Expanded でボタンの比率をそろえる
+      return Container(
+        padding: EdgeInsets.only(right: 10, left: 10),
+        child: Row(
+          children: [
+            Container(
+              width: 75,
+              child: Text(name + "：", textAlign: TextAlign.end),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: RaisedButton(
+                child: Text(high),
+              ),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: RaisedButton(
+                child: Text(low),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text("並び替え", textAlign: TextAlign.center),
+          children: <Widget>[
+            _generateRow("カード名", "昇順", "降順"),
+            _generateRow("レベル", "昇順", "降順"),
+          ],
+        );
+      },
+    );
+  }
+
   /// 検索結果表示形式
-  void _onPressedSearchResultDisplayFormat() {
+  void _onPressedDisplayFormat() {
     setState(() {
       _displayFormat = _displayFormat == _DisplayFormat.grid
           ? _DisplayFormat.list
