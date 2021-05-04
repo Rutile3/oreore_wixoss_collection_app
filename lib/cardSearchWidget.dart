@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+enum SearchDisplayCardTypeCondition {
+  all,
+  lrig,
+  main,
+}
+
 class CardSearchWidget extends StatefulWidget {
   @override
   _CardSearchWidgetState createState() => _CardSearchWidgetState();
@@ -7,6 +13,7 @@ class CardSearchWidget extends StatefulWidget {
 
 class _CardSearchWidgetState extends State<CardSearchWidget> {
   var _isViewSearchDisplayConditions = true;
+  var _searchDisplayCardTypeCondition = SearchDisplayCardTypeCondition.all;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +26,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
               _buildSearchDisplayConditions(),
             ],
           ),
+          _buildSearchDisplayCardTypeCondition(),
           Expanded(child: _buildSearchResults()),
         ],
       ),
@@ -77,6 +85,48 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
     );
   }
 
+  /// 検索表示カードタイプ条件ウィジェット
+  Widget _buildSearchDisplayCardTypeCondition() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: RaisedButton(
+            child: const Text('全て'),
+            color: _searchDisplayCardTypeCondition ==
+                    SearchDisplayCardTypeCondition.all
+                ? Colors.blue
+                : Colors.white,
+            onPressed: () => _onPressedSearchDisplayCardTypeCondition(
+                SearchDisplayCardTypeCondition.all),
+          ),
+        ),
+        Expanded(
+          child: RaisedButton(
+            child: const Text('ルリグデッキ'),
+            color: _searchDisplayCardTypeCondition ==
+                    SearchDisplayCardTypeCondition.lrig
+                ? Colors.blue
+                : Colors.white,
+            onPressed: () => _onPressedSearchDisplayCardTypeCondition(
+                SearchDisplayCardTypeCondition.lrig),
+          ),
+        ),
+        Expanded(
+          child: RaisedButton(
+            child: const Text('メインデッキ'),
+            color: _searchDisplayCardTypeCondition ==
+                    SearchDisplayCardTypeCondition.main
+                ? Colors.blue
+                : Colors.white,
+            onPressed: () => _onPressedSearchDisplayCardTypeCondition(
+                SearchDisplayCardTypeCondition.main),
+          ),
+        ),
+      ],
+    );
+  }
+
   /// 検索結果ウィジェット
   Widget _buildSearchResults() {
     final double itemHeight = 349;
@@ -90,10 +140,17 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
     );
   }
 
+  /// 検索表示条件の表示・非表示の切り替え
   void _onPressedIsViewSearchDisplayConditions() {
     setState(() {
       _isViewSearchDisplayConditions = !_isViewSearchDisplayConditions;
     });
+  }
+
+  /// 検索表示カードタイプ条件の切り替え
+  void _onPressedSearchDisplayCardTypeCondition(
+      SearchDisplayCardTypeCondition type) {
+    setState(() => _searchDisplayCardTypeCondition = type);
   }
 
   Widget _photoItem(String image) {
@@ -106,6 +163,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
     );
   }
 
+  /// テストデータ作成用
   List<Widget> _getTestImage() {
     return [
       _photoItem("0001_WX01-001"),
