@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'; // 中国語フォントにならないようにするため
-import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart'; // レイアウト確認用
 import 'package:oreore_wixoss_collection_app/cardSearch.dart';
-import 'package:oreore_wixoss_collection_app/myDeck.dart'; // レイアウト確認用
+import 'package:oreore_wixoss_collection_app/myDeck.dart';
 
 void main() {
   debugPaintSizeEnabled = true;
@@ -52,7 +51,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
       ),
       body: Center(
         child: Column(
