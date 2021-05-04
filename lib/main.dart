@@ -5,7 +5,9 @@ import 'package:oreore_wixoss_collection_app/cardSearch.dart';
 import 'package:oreore_wixoss_collection_app/myDeck.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  // レイアウト確認用のコード
+  // debugPaintSizeEnabled = true;
+
   runApp(MyApp());
 }
 
