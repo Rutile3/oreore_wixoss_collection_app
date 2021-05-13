@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'; // 中国語フォントにならないようにするため
 import 'package:flutter/rendering.dart'; // レイアウト確認用
-import 'package:oreore_wixoss_collection_app/cardSearch.dart';
+import 'package:oreore_wixoss_collection_app/cardSearch/cardSearch.dart';
+import 'package:oreore_wixoss_collection_app/cardSearch/cardFilteredSearch.dart';
 import 'package:oreore_wixoss_collection_app/myDeck.dart';
 
 void main() {
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.namedRoute: (_) => HomePage(),
         CardSearch.namedRoute: (_) => CardSearch(),
+        CardFilteredSearch.namedRoute: (_) => CardFilteredSearch(),
         MyDeck.namedRoute: (_) => MyDeck(),
       },
     );

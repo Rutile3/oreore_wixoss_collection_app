@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-
-enum _DisplayDeckType {
-  all,
-  lrig,
-  main,
-}
+import 'package:oreore_wixoss_collection_app/constant/cardDeckType.dart';
+import 'package:oreore_wixoss_collection_app/cardSearch/cardFilteredSearch.dart';
 
 enum _DisplayFormat {
   grid,
@@ -18,7 +14,7 @@ class CardSearchWidget extends StatefulWidget {
 
 class _CardSearchWidgetState extends State<CardSearchWidget> {
   bool _isViewSearchDisplayConditions = true;
-  var _displayDeckType = _DisplayDeckType.all;
+  var _displayDeckType = CardDeckType.all;
   var _displayFormat = _DisplayFormat.grid;
 
   @override
@@ -60,7 +56,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
         ),
         IconButton(
           icon: const Icon(Icons.find_in_page_outlined),
-          onPressed: () {},
+          onPressed: () => _onPressedCardFilteredSearch(context),
         ),
       ],
     );
@@ -97,36 +93,23 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
 
   /// 検索表示カードタイプ条件ウィジェット
   Widget _buildDisplayDeckType() {
+    Widget _generateButton(CardDeckType type) {
+      return
+        Expanded(
+          child: RaisedButton(
+            child: Text(CardDeckTypeText[type]),
+            color: _displayDeckType == type ? Colors.blue : Colors.white,
+            onPressed: () => _onPressedDisplayCardDeckType(type),
+          ),
+        );
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: RaisedButton(
-            child: const Text('全て'),
-            color: _displayDeckType == _DisplayDeckType.all
-                ? Colors.blue
-                : Colors.white,
-            onPressed: () => _onPressedDisplayDeckType(_DisplayDeckType.all),
-          ),
-        ),
-        Expanded(
-          child: RaisedButton(
-            child: const Text('ルリグデッキ'),
-            color: _displayDeckType == _DisplayDeckType.lrig
-                ? Colors.blue
-                : Colors.white,
-            onPressed: () => _onPressedDisplayDeckType(_DisplayDeckType.lrig),
-          ),
-        ),
-        Expanded(
-          child: RaisedButton(
-            child: const Text('メインデッキ'),
-            color: _displayDeckType == _DisplayDeckType.main
-                ? Colors.blue
-                : Colors.white,
-            onPressed: () => _onPressedDisplayDeckType(_DisplayDeckType.main),
-          ),
-        ),
+        _generateButton(CardDeckType.all),
+        _generateButton(CardDeckType.lrigDeck),
+        _generateButton(CardDeckType.mainDeck),
       ],
     );
   }
@@ -158,6 +141,14 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
     );
   }
 
+  /// 条件検索の表示
+  void _onPressedCardFilteredSearch(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      CardFilteredSearch.namedRoute,
+    );
+  }
+
   /// 検索表示条件の表示・非表示の切り替え
   void _onPressedIsViewSearchDisplayConditions() {
     setState(() {
@@ -166,7 +157,7 @@ class _CardSearchWidgetState extends State<CardSearchWidget> {
   }
 
   /// 検索表示カードタイプ条件の切り替え
-  void _onPressedDisplayDeckType(_DisplayDeckType type) {
+  void _onPressedDisplayCardDeckType(CardDeckType type) {
     setState(() => _displayDeckType = type);
   }
 
