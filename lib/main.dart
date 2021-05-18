@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'オレオレウィクロス図鑑',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: ThemeData.light(),
       // 中国語フォントにならないようにするため
       locale: locale,
       localizationsDelegates: const [
