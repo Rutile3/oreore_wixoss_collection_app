@@ -1,6 +1,6 @@
 # oreore_wixoss_collection_app
 
-TCG「WIXOSS-ウィクロス」公式カードユーティリティアプリ
+TCG「WIXOSS-ウィクロス」非公式カードユーティリティアプリ
 
 ## Getting Started
 
